@@ -1,41 +1,170 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodOnline.MainPage">
+             x:Class="FoodOnline.MainPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewmodels="clr-namespace:FoodOnline.ViewModels"
+             xmlns:models="clr-namespace:FoodOnline.Models"
+            >
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="heading">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="#666666" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+    <VerticalStackLayout>
+        <!--Header-->
+        <Grid RowDefinitions="Auto, Auto"
+              ColumnDefinitions="Auto, *, Auto"
+              ColumnSpacing="10"
+              Padding="15, 10, 15, 5"
+            BackgroundColor="AliceBlue">
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <!--First Row-->
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <Image Grid.Row="0"
+                   Grid.Column="0"
+                   Source="home.png"
+                   Aspect="AspectFill"
+                   HeightRequest="18"
+                   WidthRequest="18"
+                   HorizontalOptions="Start"/>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+            <HorizontalStackLayout Grid.Row="0"
+                                   Grid.Column="1"
+                                   Spacing="10">
+                <Label Text="Home"
+                       FontAttributes="Bold"
+                       FontSize="16"/>
+
+                <Label Text=">"
+                       Rotation="90"                       
+                       VerticalTextAlignment="Center"
+                       ScaleY="1.5"
+                       FontSize="16"/>
+
+            </HorizontalStackLayout>
+
+            <Image Grid.Row="0"
+                   Grid.Column="2"
+                   Source="user.png"
+                   Aspect="AspectFill"
+                   HeightRequest="18"
+                   WidthRequest="18" />
+
+            <!--Second Row - Search Bar-->
+
+            <Border Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        BackgroundColor="#eee"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="0"
+                          Margin="0, 10, 0, 0">
+                <Grid Padding="10, 0, 30, 0">
+
+                    <Entry Placeholder="Search for restaurant or dish"                     
+                               ClearButtonVisibility="WhileEditing"
+                               />
+                    <Image Source="search.png"
+                               Aspect="AspectFill"
+                               HeightRequest="18"
+                               WidthRequest="18"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"
+                               Opacity="0.5"
+                               Margin="0, 0, -20, 0"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Categories }" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Category">
+                    <VerticalStackLayout Margin="10, 0">
+                        <Border StrokeShape="RoundRectangle 10">
+                            <Image Source="{Binding Image}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="100"
+                                   WidthRequest="130"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                        </Border>
+                        <Label Text="{Binding Name}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               FontFamily="Poppins"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Padding="10"
+                             Spacing="10">
+
+            <Label Text="Explore offers &amp; deals"
+                   Style="{StaticResource heading}"/>
+
+            <CarouselView ItemsSource="{Binding Offers}"
+                          IndicatorView="offersIndicatorView"
+                          >
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Offer">
+                        <!--<Grid BackgroundColor="{Binding BgColor}">-->
+                        <Grid RowDefinitions="*, Auto"
+                            BackgroundColor="Red" Padding="10">
+                            <Image Grid.Row="0"
+                                Source="{Binding Image}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="250"
+                                   WidthRequest="230"/>
+
+                            <Label Grid.Row="1"
+                                    Text="{Binding Name}"
+                                   FontSize="20"
+                                   VerticalOptions="End"
+                                   HorizontalOptions="Center"
+                                   BackgroundColor="Snow"
+                                   Padding="5"
+                                   />
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=SelectOfferCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView x:Name="offersIndicatorView"
+                           IndicatorsShape="Circle"
+                           IndicatorColor="Gray"
+                           SelectedIndicatorColor="Red"
+                           IndicatorSize="12"
+                           HorizontalOptions="Center"
+                           />
 
         </VerticalStackLayout>
-    </ScrollView>
+
+        <VerticalStackLayout Padding="10"
+                             Spacing="10">
+
+            <Label Text="Explore restaurants"
+                   Style="{StaticResource heading}"/>
+
+            <Label Text="Restaurant listing will go here"/>
+
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
 
 </ContentPage>

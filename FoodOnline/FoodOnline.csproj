@@ -49,6 +49,32 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\burgers.png" />
+	  <None Remove="Resources\Images\desserts.png" />
+	  <None Remove="Resources\Images\drinks.png" />
+	  <None Remove="Resources\Images\fifty_percent_off.png" />
+	  <None Remove="Resources\Images\half_price.jpg" />
+	  <None Remove="Resources\Images\home.svg" />
+	  <None Remove="Resources\Images\hot_offer.jpg" />
+	  <None Remove="Resources\Images\map.svg" />
+	  <None Remove="Resources\Images\nonveg.png" />
+	  <None Remove="Resources\Images\orders.svg" />
+	  <None Remove="Resources\Images\percent_50p.jpg" />
+	  <None Remove="Resources\Images\pizza.png" />
+	  <None Remove="Resources\Images\rice.jpg" />
+	  <None Remove="Resources\Images\sale_40_percent.jpg" />
+	  <None Remove="Resources\Images\seafood.jpg" />
+	  <None Remove="Resources\Images\search.svg" />
+	  <None Remove="Resources\Images\soups.png" />
+	  <None Remove="Resources\Images\special_offer.png" />
+	  <None Remove="Resources\Images\thirty_percent.jpg" />
+	  <None Remove="Resources\Images\today_only.png" />
+	  <None Remove="Resources\Images\upto_25_percent.png" />
+	  <None Remove="Resources\Images\user.svg" />
+	  <None Remove="Resources\Images\veg.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 

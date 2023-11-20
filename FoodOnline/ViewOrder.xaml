@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:viewmodels="clr-namespace:FoodOnline.ViewModels"
+             xmlns:models="clr-namespace:FoodOnline.Models"
+             x:Class="FoodOnline.ViewOrder">
+     <StackLayout>
+    <CollectionView ItemsSource="{Binding SelectedItems}" x:Name="selectedItemsCollectionView">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Category">
+                <StackLayout Padding="10">
+                    <Label Text="{Binding Name}" FontSize="20" />
+                    <Label Text="{Binding Id}" FontSize="14" />
+                    <!-- Add more labels or other UI elements based on your design -->
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+
+      <Button Text="Place Order" TextColor="White" BackgroundColor="#2196F3" 
+                    CornerRadius="30" HeightRequest="50" WidthRequest="200" 
+                    Clicked="Button_Clicked" IsVisible="{Binding IsSelectedItemsEmpty}"></Button>
+
+        </StackLayout>
+
+</ContentPage>

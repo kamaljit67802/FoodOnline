@@ -1,17 +1,9 @@
 ﻿namespace FoodOnline;
-using FoodOnline.Login;
-using FoodOnline.Services;
 
-public partial class App : Application
+public partial class AppShell : Shell
 {
-    public App()
+    public AppShell()
     {
         InitializeComponent();
-        DependencyService.Register<FoodDataStoreAPI>();
-        DependencyService.Register<WebClientService>();
-
-
-        MainPage = new AppShell();
     }
 }
-

@@ -2,169 +2,69 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodOnline.MainPage"
-             Shell.NavBarIsVisible="False"
+             Shell.NavBarIsVisible="True"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:FoodOnline.ViewModels"
-             xmlns:models="clr-namespace:FoodOnline.Models"
-            >
+             xmlns:models="clr-namespace:FoodOnline.Models">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Label" x:Key="heading">
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="FontSize" Value="Large" />
-                <Setter Property="TextColor" Value="#666666" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    
+<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ImageButton Source="burgers.png"
+                    Clicked="OnBurgerClicked"
+                    HorizontalOptions="Center"
+                    BackgroundColor="SandyBrown"
+                    VerticalOptions="Center"/>
+        <Label Text="Burger"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               FontSize="Large"
+               FontFamily="Poppins"/>
+        
+        <ImageButton Grid.Column="1"
+                     Source="pizza.png"
+                    Clicked="OnPizzaClicked"
+                    HorizontalOptions="Center"
+                    BackgroundColor="Yellow"
+                    VerticalOptions="Center"/>
+        <Label Grid.Column="1"
+            Text="Pizza"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               FontSize="Large"
+               FontFamily="Poppins"/>
+        <!-- -->
+         <ImageButton Grid.Row="1"
+                     Source="desserts.png"
+                    Clicked="OnDessertClicked"
+                    HorizontalOptions="Center"
+                    BackgroundColor="White"
+                    VerticalOptions="Center"/>
+        <Label Grid.Row="1"
+            Text="Dessert"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               FontSize="Large"
+               FontFamily="Poppins"/>
 
-    <VerticalStackLayout>
-        <!--Header-->
-        <Grid RowDefinitions="Auto, Auto"
-              ColumnDefinitions="Auto, *, Auto"
-              ColumnSpacing="10"
-              Padding="15, 10, 15, 5"
-            BackgroundColor="AliceBlue">
 
-            <!--First Row-->
 
-            <Image Grid.Row="0"
-                   Grid.Column="0"
-                   Source="home.png"
-                   Aspect="AspectFill"
-                   HeightRequest="18"
-                   WidthRequest="18"
-                   HorizontalOptions="Start"/>
+         <ImageButton Grid.Row="1"
+                      Grid.Column="1"
+                     Source="soups.png"
+                    Clicked="OnSoupClicked"
+                    HorizontalOptions="Center"
+                    BackgroundColor="Yellow"
+                    VerticalOptions="Center"/>
+     
 
-            <HorizontalStackLayout Grid.Row="0"
-                                   Grid.Column="1"
-                                   Spacing="10">
-                <Label Text="Home"
-                       FontAttributes="Bold"
-                       FontSize="16"/>
-
-                <Label Text=">"
-                       Rotation="90"                       
-                       VerticalTextAlignment="Center"
-                       ScaleY="1.5"
-                       FontSize="16"/>
-
-            </HorizontalStackLayout>
-
-            <Image Grid.Row="0"
-                   Grid.Column="2"
-                   Source="user.png"
-                   Aspect="AspectFill"
-                   HeightRequest="18"
-                   WidthRequest="18" />
-
-            <!--Second Row - Search Bar-->
-
-            <Border Grid.Row="1"
-                        Grid.ColumnSpan="3"
-                        BackgroundColor="#eee"
-                        StrokeShape="RoundRectangle 10"
-                        Padding="0"
-                          Margin="0, 10, 0, 0">
-                <Grid Padding="10, 0, 30, 0">
-
-                    <Entry Placeholder="Search for restaurant or dish"                     
-                               ClearButtonVisibility="WhileEditing"
-                               />
-                    <Image Source="search.png"
-                               Aspect="AspectFill"
-                               HeightRequest="18"
-                               WidthRequest="18"
-                               VerticalOptions="Center"
-                               HorizontalOptions="End"
-                               Opacity="0.5"
-                               Margin="0, 0, -20, 0"/>
-                </Grid>
-            </Border>
-        </Grid>
-
-        <CollectionView ItemsSource="{Binding Categories }" SelectionMode="None">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Category">
-                    <VerticalStackLayout Margin="10, 0">
-                        <Border StrokeShape="RoundRectangle 10">
-                            <Image Source="{Binding Image}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="100"
-                                   WidthRequest="130"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
-                        </Border>
-                        <Label Text="{Binding Name}"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               FontFamily="Poppins"/>
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <VerticalStackLayout Padding="10"
-                             Spacing="10">
-
-            <Label Text="Explore offers &amp; deals"
-                   Style="{StaticResource heading}"/>
-
-            <CarouselView ItemsSource="{Binding Offers}"
-                          IndicatorView="offersIndicatorView"
-                          >
-                <CarouselView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Offer">
-                        <!--<Grid BackgroundColor="{Binding BgColor}">-->
-                        <Grid RowDefinitions="*, Auto"
-                            BackgroundColor="Red" Padding="10">
-                            <Image Grid.Row="0"
-                                Source="{Binding Image}"
-                                   Aspect="AspectFit"
-                                   HeightRequest="250"
-                                   WidthRequest="230"/>
-
-                            <Label Grid.Row="1"
-                                    Text="{Binding Name}"
-                                   FontSize="20"
-                                   VerticalOptions="End"
-                                   HorizontalOptions="Center"
-                                   BackgroundColor="Snow"
-                                   Padding="5"
-                                   />
-
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=SelectOfferCommand}"
-                                    CommandParameter="{Binding .}"/>
-                            </Grid.GestureRecognizers>
-                        </Grid>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-
-            <IndicatorView x:Name="offersIndicatorView"
-                           IndicatorsShape="Circle"
-                           IndicatorColor="Gray"
-                           SelectedIndicatorColor="Red"
-                           IndicatorSize="12"
-                           HorizontalOptions="Center"
-                           />
-
-        </VerticalStackLayout>
-
-        <VerticalStackLayout Padding="10"
-                             Spacing="10">
-
-            <Label Text="Explore restaurants"
-                   Style="{StaticResource heading}"/>
-
-            <Label Text="Restaurant listing will go here"/>
-
-        </VerticalStackLayout>
-
-    </VerticalStackLayout>
-
+    </Grid>
 </ContentPage>

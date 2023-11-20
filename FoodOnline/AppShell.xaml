@@ -1,14 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="FoodOnline.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:FoodOnline"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:local="clr-namespace:FoodOnline">
 
-    <ShellContent
+    <TabBar>
+          <Tab Title="Home"
+            Icon="home.png">
+        <ShellContent
         Title="Home"
+        Icon="home.png"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="Home" />
+            </Tab>
+
+        <!--<ShellContent
+        Title="Nearby Restaurants"
+         Icon="map.png"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="Nearby" />-->
+
+        <ShellContent
+        Title="My Orders"
+         Icon="orders.png"
+        ContentTemplate="{DataTemplate local:ViewOrder}"
+        Route="Orders" />
+    </TabBar>
 
 </Shell>
